@@ -8,8 +8,6 @@ class FilamentTinyMceRenderer
 {
     public function highlight($expression)
     {
-        $expression = html_entity_decode($expression);
-
         $regex = '/<pre(?:[^>]+)?><code>(.*?)<\/code><\/pre>/s';
         $regex_with_class = '/<pre[^>]*class="language-([^"]*)"[^>]*><code>(.*?)<\/code><\/pre>/s';
 
@@ -41,7 +39,7 @@ class FilamentTinyMceRenderer
             ->rememberForever($cacheKey, function () use ($code, $language, $theme) {
 
                 return Shiki::highlight(
-                    code: $code,
+                    code: html_entity_decode($code),
                     language: $language,
                     theme: $theme,
                 );
