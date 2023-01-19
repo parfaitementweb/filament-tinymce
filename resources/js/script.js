@@ -26,23 +26,29 @@ import 'tinymce/plugins/image';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/media';
 import 'tinymce/plugins/wordcount';
+import 'tinymce/plugins/autosave';
+import 'tinymce/plugins/visualchars';
 
 document.addEventListener("alpine:init", () => {
 
-    Alpine.data("filamenttinymce", ({state, css, id, body_class, content_style}) => ({
+    Alpine.data("filamenttinymce", ({state, state_path, id, css, body_class, content_style}) => ({
         id: id,
         css: css,
         body_class: body_class,
         content_style: content_style,
         state: state,
+        state_path: state_path,
         updatedAt: Date.now(), // force Alpine to rerender on selection change
         fullScreenMode: false,
         focused: false,
         init() {
             const _this = this;
             tinymce.init({
+                relative_urls: false,
+                convert_urls: true,
+                remove_script_host: false,
                 target: this.$refs.element,
-                plugins: 'wordcount quickbars table link image media advlist lists anchor autolink autoresize code codesample fullscreen importcss',
+                plugins: 'visualchars emoticons autosave wordcount quickbars table link image media advlist lists anchor autolink autoresize code codesample fullscreen importcss',
                 toolbar: 'undo redo | blocks | bold italic | alignleft aligncentre alignright alignjustify | indent outdent | bullist numlist | link emoticons | codesample | fullscreen',
                 promotion: false,
                 branding: false,
@@ -55,16 +61,16 @@ document.addEventListener("alpine:init", () => {
                 contextmenu: 'undo redo | inserttable | cell row column deletetable wordcount',
                 // content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? '/vendor/filament-tinymce/skins/content/dark/content.min.css' : '/vendor/filament-tinymce/skins/content/default/content.min.css'),
                 codesample_languages: [
-                    { text: 'PHP', value: 'php' },
-                    { text: 'HTML/XML', value: 'markup' },
-                    { text: 'JS', value: 'javascript' },
-                    { text: 'CSS', value: 'css' },
-                    { text: 'Blade', value: 'blade' },
-                    { text: 'Vue', value: 'vue' },
-                    { text: 'Bash', value: 'bash' },
-                    { text: 'Ruby', value: 'ruby' },
-                    { text: 'Python', value: 'python' },
-                    { text: 'Java', value: 'java' },
+                    {text: 'PHP', value: 'php'},
+                    {text: 'HTML/XML', value: 'markup'},
+                    {text: 'JS', value: 'javascript'},
+                    {text: 'CSS', value: 'css'},
+                    {text: 'Blade', value: 'blade'},
+                    {text: 'Vue', value: 'vue'},
+                    {text: 'Bash', value: 'bash'},
+                    {text: 'Ruby', value: 'ruby'},
+                    {text: 'Python', value: 'python'},
+                    {text: 'Java', value: 'java'},
                 ],
                 setup: (editor) => {
                     editor.on('init', (e) => {
@@ -80,7 +86,20 @@ document.addEventListener("alpine:init", () => {
                         _this.updatedAt = Date.now()
                         _this.$refs.textarea.dispatchEvent(new Event("input"));
                     });
-                }
+                },
+                images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
+                    if (!blobInfo.blob()) return
+                    _this.$wire.upload('componentFileAttachments.' + this.state_path, blobInfo.blob(), () => {
+                        _this.$wire.getComponentFileAttachmentUrl(this.state_path).then((url) => {
+                            if (!url) {
+                                reject({message: 'Erreur lors de l\'upload du fichier.', remove: true})
+                                return
+                            }
+                            resolve(url)
+                        })
+                    })
+                }),
+                automatic_uploads: true,
             });
         }
     }));

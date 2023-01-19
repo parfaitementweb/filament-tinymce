@@ -17,6 +17,8 @@
         class="relative"
         x-data="filamenttinymce({
             state: $wire.entangle('{{ $getStatePath() }}').defer,
+            state_path: '{{ $getStatePath() }}',
+            wire: $wire,
             id: $id,
             css: '{{ config('filament-tinymce.css') ? Vite::asset(config('filament-tinymce.css')) : "/vendor/filament-tinymce/skins/content/default/content.min.css" }}',
             body_class: '{{ config('filament-tinymce.body_class', '') }}',
