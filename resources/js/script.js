@@ -54,6 +54,18 @@ document.addEventListener("alpine:init", () => {
                 quickbars_selection_toolbar: 'bold italic underline codesample | bullist numlist | blockquote quicklink',
                 contextmenu: 'undo redo | inserttable | cell row column deletetable wordcount',
                 // content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? '/vendor/filament-tinymce/skins/content/dark/content.min.css' : '/vendor/filament-tinymce/skins/content/default/content.min.css'),
+                codesample_languages: [
+                    { text: 'PHP', value: 'php' },
+                    { text: 'HTML/XML', value: 'markup' },
+                    { text: 'JS', value: 'javascript' },
+                    { text: 'CSS', value: 'css' },
+                    { text: 'Blade', value: 'blade' },
+                    { text: 'Vue', value: 'vue' },
+                    { text: 'Bash', value: 'bash' },
+                    { text: 'Ruby', value: 'ruby' },
+                    { text: 'Python', value: 'python' },
+                    { text: 'Java', value: 'java' },
+                ],
                 setup: (editor) => {
                     editor.on('init', (e) => {
                         editor.setContent(state.initialValue || '');

@@ -8,24 +8,14 @@ class FilamentTinyMceRenderer
 {
     public function highlight($expression)
     {
-        $regex = '/<pre(?:[^>]+)?><code>(.*?)<\/code><\/pre>/s';
-        $regex_with_class = '/<pre[^>]*class="language-([^"]*)"[^>]*><code>(.*?)<\/code><\/pre>/s';
-
-        preg_match($regex, $expression, $matches);
-        preg_match($regex_with_class, $expression, $matches_with_class);
+        $regex = '/<pre\s?(?>class="language-([^"]*)")?><code>(.*?)<\/code><\/pre>/s';
+        preg_match_all($regex, $expression, $matches, PREG_SET_ORDER);
 
         $theme = config('filament-tinymce.theme', 'github-dark');
 
-        if (isset($matches_with_class[2])) {
-            $highlight = $this->getHighlight($matches_with_class[2], $theme, $matches_with_class[1]);
-
-            return str_replace($matches_with_class[0], $highlight, $expression);
-        }
-
-        if (isset($matches[1])) {
-            $highlight = $this->getHighlight($matches[1], $theme);
-
-            return str_replace($matches[0], $highlight, $expression);
+        foreach ($matches as $match) {
+            $highlight = $this->getHighlight($match[2], $theme, empty(! $match[1]) ? $match[1] : null);
+            $expression = str_replace($match[0], $highlight, $expression);
         }
 
         return $expression;
