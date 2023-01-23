@@ -52,6 +52,7 @@ document.addEventListener("alpine:init", () => {
                 toolbar: 'blocks bold italic | alignleft aligncenter alignright alignjustify | indent outdent | bullist numlist | link emoticons codesample fullscreen',
                 promotion: false,
                 branding: false,
+                entity_encoding: 'raw',
                 skin_url: (window.matchMedia('(prefers-color-scheme: dark)').matches ? '/vendor/filament-tinymce/skins/ui/oxide-dark' : '/vendor/filament-tinymce/skins/ui/oxide'),
                 body_class: this.body_class,
                 content_style: this.content_style,
