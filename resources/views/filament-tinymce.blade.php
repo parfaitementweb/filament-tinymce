@@ -20,9 +20,9 @@
             state_path: '{{ $getStatePath() }}',
             wire: $wire,
             id: $id,
-            css: '{{ config('filament-tinymce.css') ? Vite::asset(config('filament-tinymce.css')) : "/vendor/filament-tinymce/skins/content/default/content.min.css" }}',
+            css: '{{ $getCssPath() }}',
             body_class: '{{ config('filament-tinymce.body_class', '') }}',
-            content_style: '{{ config('filament-tinymce.content_style', '') }}'
+            content_style: '{{ $getContentStyle() ?? config('filament-tinymce.content_style', '') }}'
         })"
     >
 

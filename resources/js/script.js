@@ -49,7 +49,7 @@ document.addEventListener("alpine:init", () => {
                 remove_script_host: false,
                 target: this.$refs.element,
                 plugins: 'visualchars emoticons autosave wordcount quickbars table link image media advlist lists anchor autolink autoresize code codesample fullscreen importcss',
-                toolbar: 'undo redo | blocks | bold italic | alignleft aligncentre alignright alignjustify | indent outdent | bullist numlist | link emoticons | codesample | fullscreen',
+                toolbar: 'blocks bold italic | alignleft aligncenter alignright alignjustify | indent outdent | bullist numlist | link emoticons codesample fullscreen',
                 promotion: false,
                 branding: false,
                 skin_url: (window.matchMedia('(prefers-color-scheme: dark)').matches ? '/vendor/filament-tinymce/skins/ui/oxide-dark' : '/vendor/filament-tinymce/skins/ui/oxide'),
