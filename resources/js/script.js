@@ -59,8 +59,9 @@ document.addEventListener("alpine:init", () => {
                 content_css: this.css,
                 quickbars_insert_toolbar: 'quicktable image media codesample',
                 quickbars_selection_toolbar: 'bold italic underline codesample | bullist numlist | blockquote quicklink',
-                contextmenu: 'undo redo | inserttable | cell row column deletetable wordcount',
                 // content_css: (window.matchMedia('(prefers-color-scheme: dark)').matches ? '/vendor/filament-tinymce/skins/content/dark/content.min.css' : '/vendor/filament-tinymce/skins/content/default/content.min.css'),
+                browser_spellcheck: true,
+                contextmenu: false,
                 codesample_languages: [
                     {text: 'PHP', value: 'php'},
                     {text: 'HTML/XML', value: 'markup'},
