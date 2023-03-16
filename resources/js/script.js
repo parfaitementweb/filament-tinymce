@@ -64,15 +64,22 @@ document.addEventListener("alpine:init", () => {
                 contextmenu: false,
                 codesample_languages: [
                     {text: 'PHP', value: 'php'},
-                    {text: 'HTML/XML', value: 'markup'},
+                    {text: 'HTML', value: 'html'},
                     {text: 'JS', value: 'javascript'},
                     {text: 'CSS', value: 'css'},
+                    {text: 'Post CSS', value: 'postcss'},
                     {text: 'Blade', value: 'blade'},
                     {text: 'Vue', value: 'vue'},
+                    {text: 'Vue HTML', value: 'vue-htm'},
                     {text: 'Bash', value: 'bash'},
                     {text: 'Ruby', value: 'ruby'},
                     {text: 'Python', value: 'python'},
                     {text: 'Java', value: 'java'},
+                    {text: 'Sql', value: 'sql'},
+                    {text: 'Twig', value: 'twig'},
+                    {text: 'XML', value: 'xml'},
+                    {text: 'Markdown', value: 'markdown'},
+                    {text: 'JSON', value: 'json'},
                 ],
                 setup: (editor) => {
                     editor.on('init', (e) => {
